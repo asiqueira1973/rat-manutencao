@@ -12,10 +12,17 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
 
+  const webhookPayload = {
+    drive_folder_origem: body.pastaDrive,
+    cliente_planta: body.clientePlanta,
+    empresa_prestadora: body.empresaPrestadora,
+    email_destino: body.emailDestino,
+  };
+
   const webhookResponse = await fetch(webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: JSON.stringify(webhookPayload),
   });
 
   if (!webhookResponse.ok) {
